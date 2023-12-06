@@ -4,6 +4,8 @@ import random
 from  UnitsList import Unit
 from PlayerList import Player
 import PlayerList
+from ShopList import Shop
+import ShopList
 
 from pygame.locals import(
     KEYDOWN,
@@ -45,14 +47,10 @@ class Button:
             if self.rect.collidepoint(event.pos):
                 self.command()
 
-class Shop:
-    def __init__(self, unit_list):
-        self.unit_list = unit_list
-
 grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
 
-unit_list = []
+unit_list = [] 
 #Eine Unitlist für Alle Units und jeweils nochmal verschiedene für die kosten, den typen der Einheit usw
 
 player_unit_image = pygame.image.load("images/Ritter.png")
@@ -72,8 +70,8 @@ Baum_image = pygame.image.load("images/Baum.png")
 
 
 #createplayers
-blueplayer1 = Player(100, blueplayer1_units)
-redplayer2 = Player(100, redplayer2_units)
+blueplayer1 = Player(blueplayer1_units)
+redplayer2 = Player(redplayer2_units)
 
 
 # Create Rounds for shopping and setting Units
