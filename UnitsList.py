@@ -5,8 +5,8 @@ import pygame
 import random
 # import Game
 
-grid_size = 8
-cell_size = 800 // grid_size
+grid_size = 10
+cell_size = 1920 // grid_size
 
 # Unit Class
 class Unit:
@@ -17,7 +17,6 @@ class Unit:
         #self.rect = image.get_rect()
         self.cost = cost
         self.position = position
-
 
         #combat stats
         self.health = health
@@ -49,6 +48,27 @@ class Unit:
     def __call__(self, target_position) :
         self.move(target_position)
 
+class Warrior(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
 
+class Mage(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
 
+class Tank(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+
+class ADC(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+
+class Healer(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+
+#warrior_list = []
+#for i in range(10):
+    #warrior_list.append(Warrior(name, health, cost, attack_damage, ability, position, image_path))
 

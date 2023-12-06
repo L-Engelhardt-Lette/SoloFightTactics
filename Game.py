@@ -2,7 +2,8 @@ import imp
 import pygame
 import random
 from  UnitsList import Unit
-import UnitsList
+from PlayerList import Player
+import PlayerList
 
 from pygame.locals import(
     KEYDOWN,
@@ -11,7 +12,7 @@ from pygame.locals import(
 pygame.init()
 
 WIDTH = 1920
-HEIGHT = 960
+HEIGHT = 1080
 FPS = 60
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -44,16 +45,6 @@ class Button:
             if self.rect.collidepoint(event.pos):
                 self.command()
 
-
-
-# Player Class
-class Player:
-    def __init__(self, health, player_units):
-        self.health = health
-        self.player_units = player_units
-        self.is_turn = False
-
-
 class Shop:
     def __init__(self, unit_list):
         self.unit_list = unit_list
@@ -62,7 +53,7 @@ grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
 
 unit_list = []
-
+#Eine Unitlist für Alle Units und jeweils nochmal verschiedene für die kosten, den typen der Einheit usw
 
 player_unit_image = pygame.image.load("images/Ritter.png")
 enemy_unit_image = pygame.image.load("images/Baum.png")
@@ -85,7 +76,7 @@ blueplayer1 = Player(100, blueplayer1_units)
 redplayer2 = Player(100, redplayer2_units)
 
 
-# Create Rounds for shopping
+# Create Rounds for shopping and setting Units
 current_round = 1
 
 def button1_command():
@@ -149,11 +140,6 @@ while running:
         clicked = True
     else:
         clicked = False
-
-
-    #font = pygame.font.Font(None, 36)
-    #mana_text = font.render(f"Mana: {int(mana)}", True, GREEN)
-    #screen.blit(mana_text, (10, 10))
 
     if current_round % 2 == 1:  # Odd rounds - player 1's turn
         redplayer2.is_turn = False
