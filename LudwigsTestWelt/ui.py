@@ -1,7 +1,8 @@
 import pygame
 import sys
 
-# Initialize Pygame test
+#test
+# Initialize Pygame
 pygame.init()
 
 # Constants for the screen dimensions and grid
