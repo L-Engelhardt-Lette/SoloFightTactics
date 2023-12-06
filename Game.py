@@ -4,7 +4,9 @@ import random
 from  UnitsList import Unit
 from PlayerList import Player
 import PlayerList
-
+from ShopList import Shop
+import ShopList
+# Game-Klasse erstellen und alles in die Game klasse verfrachten so etwas wie die upadte funktion etc.
 from pygame.locals import(
     KEYDOWN,
     K_ESCAPE
@@ -23,6 +25,11 @@ cell_size = WIDTH // grid_size
 
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Auto Battler")
+
+
+class Game:
+    def __init__():
+        pass
 
 #Button
 class Button:
@@ -45,45 +52,39 @@ class Button:
             if self.rect.collidepoint(event.pos):
                 self.command()
 
-class Shop:
-    def __init__(self, unit_list):
-        self.unit_list = unit_list
-
 grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
 
-unit_list = []
+unit_list = [] 
 #Eine Unitlist für Alle Units und jeweils nochmal verschiedene für die kosten, den typen der Einheit usw
 
+
+#Alles nur zum Test wird später wieder gelöscht
 player_unit_image = pygame.image.load("images/Ritter.png")
 enemy_unit_image = pygame.image.load("images/Baum.png")
-
 bluePlayerunit = Unit("player_unit", 0, 100, 10, 1, 0,"images/Ritter.png")
 redPlayerunit = Unit("enemy_unit", 0, 100, 10, 1, 0,"images/Baum.png")
-
-blueplayer1_units = []
-redplayer2_units = []
-
 Ritter_image = pygame.image.load("images/Ritter.png")
 Baum_image = pygame.image.load("images/Baum.png")
 
-#Ritter = Unit(Ritter_image, 100, 1, 1, 0, 1, (grid_x, grid_y))
-#Baum = Unit(Baum_image, 100, 1, 1, 0, 2)
-
-
+#Alle vom Spieler besessenen Units kommen die die jeweilige Liste
+blueplayer1_units = []
+redplayer2_units = []
 #createplayers
-blueplayer1 = Player(100, blueplayer1_units)
-redplayer2 = Player(100, redplayer2_units)
+blueplayer1 = Player(blueplayer1_units)
+redplayer2 = Player(redplayer2_units)
 
 
 # Create Rounds for shopping and setting Units
 current_round = 1
 
+#Knopf für das Rundenwechseln für die Spieler, wir können in diesen command einbauen, dass wenn beide Player diesen Knopf einmal gedrückt haben der Fight beginnt, wahrscheinlich mit boolean Abfrage
 def button1_command():
     global current_round
     print("Button 1 pressed!")
     current_round = 1 + current_round
 
+#Knopf für den Start des Kampfes
 def button2_command():
     print("Button 2 pressed")    
     for redplayer_unit in redplayer2_units:
