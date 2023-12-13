@@ -29,7 +29,9 @@ pygame.display.set_caption("Auto Battler")
 
 class Game:
     def __init__(self):
+        # Liste für alle Units wird in der Game-Klasse initialisiert und später bevor das Game initialisiert wird dem Shop übergeben, sodass alles seine Ordnung hat
         unit_list = []
+        # Alle Uniquen Einheiten müssen als einzelne Objekte erschaffen und der Liste hinzugefügt werden
         archer1 = ADC('Archer', 120, 1, 10, 0, (0, 0))
         archer2 = ADC('Archer2', 150, 2, 12, 0, (0, 0))
         warrior1 = Warrior('Warrior', 180, 1, 3, 0, (0, 0))
@@ -39,7 +41,7 @@ class Game:
         mage1 = Mage('Mage', 140, 1, 10, 0, (0, 0))
         mage2 = Mage('Mage2', 150, 2, 12, 0, (0, 0))
         unit_list.append(archer1, archer2, warrior1, warrior2, assasine1, assasine2, mage1, mage2)
-        
+
             
         
 
@@ -66,9 +68,6 @@ class Button:
 
 grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
-
- 
-#Eine Unitlist für Alle Units und jeweils nochmal verschiedene für die kosten, den typen der Einheit usw
 
 
 #Alles nur zum Test wird später wieder gelöscht
