@@ -44,6 +44,52 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 BLACK = (0, 0, 0)
 
+#
+#   CLASS
+#
+
+# Shop class to represent each shop
+class Shop:
+    def __init__(self, player, characters, position):
+        self.player = player
+        self.characters = characters  # List of characters available in the shop
+        self.position = position      # Position of the shop on the screen
+
+    def draw(self, screen):
+        for i, character in enumerate(self.characters):
+            # Assuming each character has a 'sprite' attribute for the image
+            # and 'traits' attribute for the traits
+            character_sprite = character.sprite
+            character_traits = character.traits
+
+            # Calculate position for each character in the shop
+            x = self.position[0] + i * TILE_SIZE[0]
+            y = self.position[1]
+
+            # Draw character sprite
+            screen.blit(character_sprite, (x, y))
+
+            # Draw traits (icons and text)
+            # This is a placeholder, adjust according to how traits are represented
+            for j, trait in enumerate(character_traits):
+                trait_icon = trait.icon
+                trait_text = trait.text
+                screen.blit(trait_icon, (x, y + j * 20))  # Example positioning
+                # Render and draw trait text
+                trait_font = pygame.font.SysFont(None, 24)
+                trait_label = trait_font.render(trait_text, True, (255,255,255))
+                screen.blit(trait_label, (x + 20, y + j * 20))
+
+# Example of creating two shops
+# This is a placeholder, adjust according to the actual game structure
+player1_characters = [Character1(), Character2(), Character3(), Character4(), Character5()]
+player2_characters = [Character6(), Character7(), Character8(), Character9(), Character10()]
+
+shop1 = Shop(player1, player1_characters, (100, SCREEN_HEIGHT - 100))  # Positioning for player 1's shop
+shop2 = Shop(player2, player2_characters, (SCREEN_WIDTH - 600, SCREEN_HEIGHT - 100))  # Positioning for player 2's shop
+
+# In the game loop, you would call shop1.draw(screen) and shop2.draw(screen) to display the shops
+
 # Create and draw rectangles with different colors
 rectangles = [
     pygame.Rect(0, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT),  # Shop Tile (left side)
@@ -86,3 +132,5 @@ while running:
 # Quit Pygame
 pygame.quit()
 sys.exit()
+
+
