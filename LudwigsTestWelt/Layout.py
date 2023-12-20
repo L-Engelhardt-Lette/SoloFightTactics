@@ -19,6 +19,8 @@ SHOP_TILE_WIDTH = 310  # Width of each shop tile
 SHOP_TILE_HEIGHT = 800  # Height of each shop tile
 SHOP_UNIT_TILE_HEIGHT = SHOP_TILE_HEIGHT / 5
 SHOP_UNIT_TILE_WIDTH = SHOP_TILE_WIDTH
+SHOP_GRID_COL = 1
+SHOP_GRID_ROW = 5
 
 # Constants for the Round Console tiles
 ROUND_CONSOLE_TILE_WIDTH = 640
@@ -79,6 +81,13 @@ while running:
     for col in range(GRID_SIZE[1] + 1):
         x = SHOP_TILE_WIDTH + col * TILE_SIZE[0]
         pygame.draw.line(screen, BLACK, (x, SHOP_TILE_HEIGHT % TILE_SIZE[1]), (x, SHOP_TILE_HEIGHT % TILE_SIZE[1] + GRID_HEIGHT))
+
+    #Grid for the shop for player 1
+    for row in range(SHOP_GRID_ROW):
+        for col in range(SHOP_GRID_COL):
+            rect = pygame.Rect(col * SHOP_UNIT_TILE_WIDTH, row * SHOP_UNIT_TILE_HEIGHT, SHOP_UNIT_TILE_WIDTH, SHOP_UNIT_TILE_HEIGHT)
+            pygame.draw.rect(screen, BLACK, rect, 1)  # 1 for outline
+    #Grid for the shop for player 2
 
     # Update the display
     pygame.display.flip()
