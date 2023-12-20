@@ -1,9 +1,10 @@
+from ast import AnnAssign
 import imp
 import pygame
 import random
 from  UnitsList import Unit, ADC, Assasine, Warrior, Mage
 from PlayerList import Player
-from ShopList import Shop
+#from ShopList import Shop
 
 # Game-Klasse erstellen und alles in die Game klasse verfrachten so etwas wie die upadte funktion etc.
 from pygame.locals import(
@@ -20,6 +21,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 gray = (200, 200, 200)
 
+# Kann alles später weg nur zum Testen
 grid_size = 10
 cell_size = WIDTH // grid_size
 
@@ -40,11 +42,21 @@ class Game:
         assasine2 = Assasine('Assasine2', 130, 2, 16, 0, (0, 0))
         mage1 = Mage('Mage', 140, 1, 10, 0, (0, 0))
         mage2 = Mage('Mage2', 150, 2, 12, 0, (0, 0))
-        unit_list.append(archer1, archer2, warrior1, warrior2, assasine1, assasine2, mage1, mage2)
+        unit_list.append(archer1)
+        unit_list.append(archer2)
+        unit_list.append(warrior1)
+        unit_list.append(warrior2)
+        unit_list.append(assasine1)
+        unit_list.append(assasine2)
+        unit_list.append(mage1)
+        unit_list.append(mage2)
+
+
+        def place_unit(self, unit):
+            pass
+
 
             
-        
-
 #Button
 class Button:
     def __init__(self, x, y, width, height, text, command):
@@ -66,24 +78,12 @@ class Button:
             if self.rect.collidepoint(event.pos):
                 self.command()
 
+
 grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
 
-
-#Alles nur zum Test wird später wieder gelöscht
-player_unit_image = pygame.image.load("images/Ritter.png")
-enemy_unit_image = pygame.image.load("images/Baum.png")
-bluePlayerunit = Unit("player_unit", 0, 100, 10, 1, 0,"images/Ritter.png")
-redPlayerunit = Unit("enemy_unit", 0, 100, 10, 1, 0,"images/Baum.png")
-Ritter_image = pygame.image.load("images/Ritter.png")
-Baum_image = pygame.image.load("images/Baum.png")
-
-#Alle vom Spieler besessenen Units kommen die die jeweilige Liste
-blueplayer1_units = []
-redplayer2_units = []
 #createplayers
-blueplayer1 = Player(blueplayer1_units)
-redplayer2 = Player(redplayer2_units)
+
 
 
 # Create Rounds for shopping and setting Units
@@ -98,12 +98,12 @@ def button1_command():
 #Knopf für den Start des Kampfes
 def button2_command():
     print("Button 2 pressed")    
-    for redplayer_unit in redplayer2_units:
-        if blueplayer1_units:
-            target = random.choice(blueplayer1_units)
+    for redplayer_unit in redplayer2.player_units:
+        if blueplayer1.player_units:
+            target = random.choice(blueplayer1.player_units)
         redplayer_unit.attack(target)
         if target.health <= 0:
-            blueplayer1_units.remove(target)
+            blueplayer1.player_units.remove(target)
 
     #for blueplayer_unit in blueplayer1_units:
         #if redplayer2_units:
@@ -116,7 +116,9 @@ button1_next_round = Button(50, 50, 200, 80, "Next Round", button1_command)
 button2_start_combat = Button(1500, 50, 200, 80, "Start Combat", button2_command)
 
 buttons = [button1_next_round, button2_start_combat]
-
+blueplayer1 = Player()
+redplayer2 = Player()
+game = Game()
 running = True
 clock = pygame.time.Clock()
 clicked = False
@@ -138,14 +140,16 @@ while running:
         # Check if the grid cell is empty
         if current_round % 2 == 1 and grid_player1 [grid_y][grid_x] == 0 and not clicked:
             # Place a unit on the grid
+            archer1 = ADC('Archer', 120, 1, 10, 0, (grid_x, grid_y))
             new_unit = Unit(name="Knight", health=100, cost = 1, attack_damage=20, ability=0, position=(grid_x, grid_y), image_path ="images/Ritter.png")
-            blueplayer1_units.append(new_unit)
+            blueplayer1.player_units.append(archer1)
             grid_player1[grid_y][grid_x] = 1  # Set grid cell to indicate it's occupied
             print(grid_x, grid_y,"player")
         
         elif current_round % 2 != 1 and grid_player2 [grid_y][grid_x] == 0 and not clicked:
+            warrior2 = Warrior('Warrior2', 200, 2, 5, 0, (grid_x, grid_y))
             new_unit = Unit(name="Baum",  health=100, cost = 1, attack_damage=20, ability=0, position=(grid_x, grid_y), image_path ="images/Baum.png")
-            redplayer2_units.append(new_unit)
+            redplayer2.player_units.append(warrior2)
             grid_player2[grid_y][grid_x] = 1
             print(grid_x, grid_y, "player2")
             
@@ -164,16 +168,9 @@ while running:
         current_player = redplayer2
         next_player = blueplayer1
        
-
-    #     if event.type == KEYDOWN:
-    #         if event.key == K_ESCAPE:
-    #             running = False
-
-    # keys = pygame.key.get_pressed()
-    # if keys[pygame.K_SPACE]:
-    #     current_round += 1
-
-    # screen.fill(white)
+    if event.type == KEYDOWN:
+        if event.key == K_ESCAPE:
+            running = False
 
     # Draw the grid
     screen.fill(white)
@@ -185,9 +182,9 @@ while running:
         b.draw()
 
     # Draw units on the grid
-    for u in blueplayer1_units:
+    for u in blueplayer1.player_units:
         screen.blit(u.image, (u.position[0] * cell_size, u.position[1] * cell_size))
-    for u in redplayer2_units:   
+    for u in redplayer2.player_units:   
         screen.blit(u.image, (u.position[0] * cell_size, u.position[1] * cell_size)) 
 
     pygame.display.flip()

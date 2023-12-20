@@ -27,8 +27,8 @@ class Unit:
         #Am Anfang sind die Units immer am Leben
         self.is_alive = True
 
-    def move(self, new_position):
-        self.position = new_position   
+    #def move(self, new_position):
+        #self.position = new_position   
 
     def attack(self, target):
         if self.mana == 100:
