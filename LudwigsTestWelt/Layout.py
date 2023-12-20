@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 1080
 GRID_WIDTH = SCREEN_WIDTH - 620  # Reduced width to accommodate two shops
 GRID_HEIGHT = SCREEN_HEIGHT - 280
 GRID_SIZE = (5, 8)  # 5 rows by 8 columns for both players combined
-TILE_SIZE = (GRID_WIDTH // GRID_SIZE[1], GRID_HEIGHT // (GRID_SIZE[0] + 2))  # additional 2 rows for shop and info
+TILE_SIZE = (GRID_WIDTH // GRID_SIZE[1], GRID_HEIGHT // (GRID_SIZE[0] + 1))  # additional 2 rows for shop and info
 
 # Constants for the shop tiles
 SHOP_TILE_WIDTH = 310  # Width of each shop tile
@@ -42,6 +42,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
+BLACK = (0, 0, 0)
 
 # Create and draw rectangles with different colors
 rectangles = [
@@ -54,7 +55,7 @@ rectangles = [
 ]
 
 # Fill each rectangle with a different color
-colors = [WHITE, RED, GREEN, BLUE, YELLOW]
+colors = [BLUE, WHITE, BLUE, GREEN, YELLOW]
 
 # Main game loop
 running = True
@@ -64,11 +65,20 @@ while running:
             running = False
 
     # Clear the screen
-    screen.fill((0, 0, 0))  # Fill with black
+    screen.fill(WHITE)  # Fill with white
 
     # Draw rectangles with different colors
     for rect, color in zip(rectangles, colors):
         pygame.draw.rect(screen, color, rect)
+
+    # Draw the grid on the game grid (red part)
+    for row in range(GRID_SIZE[0] + 1):
+        y = row * TILE_SIZE[1] + SHOP_TILE_HEIGHT % TILE_SIZE[1]
+        pygame.draw.line(screen, BLACK, (SHOP_TILE_WIDTH, y), (SHOP_TILE_WIDTH + GRID_WIDTH, y))
+
+    for col in range(GRID_SIZE[1] + 1):
+        x = SHOP_TILE_WIDTH + col * TILE_SIZE[0]
+        pygame.draw.line(screen, BLACK, (x, SHOP_TILE_HEIGHT % TILE_SIZE[1]), (x, SHOP_TILE_HEIGHT % TILE_SIZE[1] + GRID_HEIGHT))
 
     # Update the display
     pygame.display.flip()

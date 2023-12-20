@@ -48,27 +48,24 @@ class Unit:
     def __call__(self, target_position) :
         self.move(target_position)
 
+
 class Warrior(Unit):
-    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
-        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+    def __init__(self, name, health, cost, attack_damage, ability, position):
+        super().__init__(name, health, cost , attack_damage, ability, position, image_path = 'images/1.png')
 
 class Mage(Unit):
-    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
-        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+    def __init__(self, name, health, cost, attack_damage, ability, position):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path = 'images/2.png')
 
-class Tank(Unit):
-    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
-        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+class Assasine(Unit):
+    def __init__(self, name, health, cost, attack_damage, ability, position):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path = 'images/3.png')
 
 class ADC(Unit):
-    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
-        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
-
-class Healer(Unit):
-    def __init__(self, name, health, cost, attack_damage, ability, position, image_path):
-        super().__init__(name, health, cost, attack_damage, ability, position, image_path)
+    def __init__(self, name, health, cost, attack_damage, ability, position):
+        super().__init__(name, health, cost, attack_damage, ability, position, image_path = 'images/4.png')
 
 #warrior_list = []
 #for i in range(10):
     #warrior_list.append(Warrior(name, health, cost, attack_damage, ability, position, image_path))
-
+    
