@@ -45,8 +45,11 @@ class Unit:
         if self.health <=0:
             self.is_alive = False
     
-    def __call__(self, target_position) :
-        self.move(target_position)
+    def move(self, new_position):
+        self.position = new_position
+
+    #def __call__(self, target_position) :
+        #self.move(target_position)
 
 
 class Warrior(Unit):
