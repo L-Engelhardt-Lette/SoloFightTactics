@@ -3,9 +3,7 @@ from Game import Game
 from PlayerList import Player
 from UnitsList import Unit, Warrior, ADC, Assasine, Mage
 
-# Die Shop Klasse muss alle Einheiten beinhalten
-# Jede Runde updaten und neue Einheiten anzeigen nach prozentualler Wahrscheinlichkeit die durch das Level der Spieler festgelegt wird
-# Wenn wir Zeit haben, Vergleich mit Spieler-Liste und den Units im Shop um die Units aufzuleveln
+# Bekommt die unit listen vom Game
 class Shop:
     def __init__(self, game):
         self.unitlist = game.unitlist

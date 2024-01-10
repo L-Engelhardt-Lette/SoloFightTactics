@@ -27,8 +27,8 @@ class Unit:
         #Am Anfang sind die Units immer am Leben
         self.is_alive = True
 
-    #def move(self, new_position):
-        #self.position = new_position   
+    def move(self, new_position):
+        self.position = new_position   
 
     def attack(self, target):
         if self.mana == 100:
@@ -45,11 +45,8 @@ class Unit:
         if self.health <=0:
             self.is_alive = False
     
-    def move(self, new_position):
-        self.position = new_position
-
-    #def __call__(self, target_position) :
-        #self.move(target_position)
+    def __call__(self, target_position) :
+        self.move(target_position)
 
 
 class Warrior(Unit):
