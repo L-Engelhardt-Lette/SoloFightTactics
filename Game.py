@@ -1,12 +1,10 @@
-from ast import AnnAssign
-import imp
 import pygame
 import random
 from  UnitsList import Unit, ADC, Assasine, Warrior, Mage
 from PlayerList import Player
 #from ShopList import Shop
 
-# Game-Klasse erstellen und alles in die Game klasse verfrachten so etwas wie die upadte funktion etc.
+# Game-Klasse erstellen und alles in die Game klasse verfrachten so etwas wie die update funktion etc.
 from pygame.locals import(
     KEYDOWN,
     K_ESCAPE
@@ -14,6 +12,7 @@ from pygame.locals import(
 
 pygame.init()
 
+#Wichtige Variablen für die Erstellung eines Spieles
 WIDTH = 1920
 HEIGHT = 1080
 FPS = 60
@@ -21,14 +20,14 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 gray = (200, 200, 200)
 
-# Kann alles später weg nur zum Testen
+# Grid für die Setzung der Einheiten wird bestimmt, aber Ludwig macht das Besser
 grid_size = 10
 cell_size = WIDTH // grid_size
 
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Auto Battler")
 
-
+#Game Klasse mit allen wichtigen Funktionen, sodass unser Spiel funktioniert
 class Game:
     def __init__(self):
         # Liste für alle Units wird in der Game-Klasse initialisiert und später bevor das Game initialisiert wird dem Shop übergeben, sodass alles seine Ordnung hat
@@ -42,22 +41,28 @@ class Game:
         assasine2 = Assasine('Assasine2', 130, 2, 16, 0, (0, 0))
         mage1 = Mage('Mage', 140, 1, 10, 0, (0, 0))
         mage2 = Mage('Mage2', 150, 2, 12, 0, (0, 0))
-        unit_list.append(archer1)
-        unit_list.append(archer2)
-        unit_list.append(warrior1)
-        unit_list.append(warrior2)
-        unit_list.append(assasine1)
-        unit_list.append(assasine2)
-        unit_list.append(mage1)
-        unit_list.append(mage2)
+        unit_list.append([archer1, archer2])
+        unit_list.append([warrior1, warrior2])
+        unit_list.append([assasine1, assasine2])
+        unit_list.append([mage1, mage2])
+        #Hashmap/dictionary oder 2D List
+        def place_unit(unit, grid_player):
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            grid_x = mouse_x // cell_size
+            grid_y = mouse_y // cell_size
 
-
-        def place_unit(self, unit):
-            pass
+            # Check if the grid cell is empty
+            if grid_player [grid_y][grid_x] == 0 and not clicked:
+                # Place a unit on the grid
+                unit.move((grid_x, grid_y))
+                grid_player[grid_y][grid_x] = 1  # Set grid cell to indicate it's occupied
+                print(grid_x, grid_y,"player")
+                
 
 
             
-#Button
+#Button Blueprint um Buttons für die Funktonen zu erstellen die wir brauchen
+#Kann vielleicht auch noch woanders hin um nicht so viel Platz zu verschwenden
 class Button:
     def __init__(self, x, y, width, height, text, command):
         self.rect = pygame.Rect(x, y, width, height)
@@ -82,20 +87,16 @@ class Button:
 grid_player1 = [[0] * grid_size for _ in range(grid_size)]
 grid_player2 = [[0] * grid_size for _ in range(grid_size)]
 
-#createplayers
-
-
-
-# Create Rounds for shopping and setting Units
-current_round = 1
-
-#Knopf für das Rundenwechseln für die Spieler, wir können in diesen command einbauen, dass wenn beide Player diesen Knopf einmal gedrückt haben der Fight beginnt, wahrscheinlich mit boolean Abfrage
+#Knopf für das Rundenwechseln für die Spieler
+#wir können in diesen command einbauen
+#wenn beide Player diesen Knopf einmal gedrückt haben der Fight beginnt, wahrscheinlich mit boolean Abfrage
 def button1_command():
     global current_round
     print("Button 1 pressed!")
     current_round = 1 + current_round
 
-#Knopf für den Start des Kampfes
+#Knopf für den Start des Kampfes, muss noch besser definiert werden, wie die Einheiten kämpfen
+#Wenn Zeit da ist mit Sprites und Bewegung
 def button2_command():
     print("Button 2 pressed")    
     for redplayer_unit in redplayer2.player_units:
@@ -116,6 +117,7 @@ button1_next_round = Button(50, 50, 200, 80, "Next Round", button1_command)
 button2_start_combat = Button(1500, 50, 200, 80, "Start Combat", button2_command)
 
 buttons = [button1_next_round, button2_start_combat]
+current_round = 1
 blueplayer1 = Player()
 redplayer2 = Player()
 game = Game()
@@ -131,7 +133,10 @@ while running:
         b.handle_event(event)        
 
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left mouse button
-        mouse_x, mouse_y = pygame.mouse.get_pos()
+        #muss noch rausfinden wie ich die Unit bekomme die gerade ausgewählt wird 
+        #am besten drag and drop einbauen und eine Testeihneit einbauen um mit dem Grid zu testen
+        game.place_unit()
+        """mouse_x, mouse_y = pygame.mouse.get_pos()
         grid_x = mouse_x // cell_size
         grid_y = mouse_y // cell_size
         print(grid_x, grid_y)
@@ -151,12 +156,13 @@ while running:
             new_unit = Unit(name="Baum",  health=100, cost = 1, attack_damage=20, ability=0, position=(grid_x, grid_y), image_path ="images/Baum.png")
             redplayer2.player_units.append(warrior2)
             grid_player2[grid_y][grid_x] = 1
-            print(grid_x, grid_y, "player2")
+            print(grid_x, grid_y, "player2")"""
             
         clicked = True
     else:
         clicked = False
 
+    #Das Ändern der Runden und wer am Zug ist muss alles in eine Funktion in die Game Klasse
     if current_round % 2 == 1:  # Odd rounds - player 1's turn
         redplayer2.is_turn = False
         blueplayer1.is_turn = True
@@ -172,7 +178,7 @@ while running:
         if event.key == K_ESCAPE:
             running = False
 
-    # Draw the grid
+    # Draw the grid passiert während das spiel läuft, kann wahrscheinlich auch in eine Update Funktion in Game, aber nochmal fragen
     screen.fill(white)
     for row in range(grid_size):
         for col in range(grid_size):
@@ -181,7 +187,7 @@ while running:
     for b in buttons:
         b.draw()
 
-    # Draw units on the grid
+    # Draw units on the grid kann auch in die Update Funktion wahrscheinlich
     for u in blueplayer1.player_units:
         screen.blit(u.image, (u.position[0] * cell_size, u.position[1] * cell_size))
     for u in redplayer2.player_units:   
