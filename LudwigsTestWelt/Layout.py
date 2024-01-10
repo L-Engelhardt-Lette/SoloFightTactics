@@ -14,6 +14,14 @@ GRID_HEIGHT = SCREEN_HEIGHT - 280
 GRID_SIZE = (5, 8)  # 5 rows by 8 columns for both players combined
 TILE_SIZE = (GRID_WIDTH // GRID_SIZE[1], GRID_HEIGHT // (GRID_SIZE[0] + 1))  # additional 2 rows for shop and info
 
+# Define colors
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+BLACK = (0, 0, 0)
+
 # Constants for the shop tiles
 SHOP_TILE_WIDTH = 310  # Width of each shop tile
 SHOP_TILE_HEIGHT = 800  # Height of each shop tile
@@ -34,30 +42,46 @@ PLAYER_ONE_INFO_HEIGHT = 280
 PLAYER_TWO_INFO_WIDTH = 640
 PLAYER_TWO_INFO_HEIGHT = 280
 
+
+# Button dimensions and position
+BUTTON_WIDTH = 100
+BUTTON_HEIGHT = 60
+BUTTON_x = (SCREEN_WIDTH - BUTTON_WIDTH) // 2
+BUTTON_y = (SCREEN_HEIGHT - BUTTON_HEIGHT) // 2
+
+# Create the button surface
+BUTTON_surface = pygame.Surface((BUTTON_WIDTH, BUTTON_HEIGHT))
+BUTTON_surface.fill(BLUE)
+
+# Draw a black border around the button
+pygame.draw.rect(BUTTON_surface, BLACK, (0, 0, BUTTON_WIDTH, BUTTON_HEIGHT), 3)
+
+
 # Initialize Pygame screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Rectangles Example')
+pygame.display.set_caption('ICH MAG PYGAME NICHT')
 
-# Define colors
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-BLACK = (0, 0, 0)
 
-# Create and draw rectangles with different colors
+# Load the image for the background
+BACKGROUDN_Img_GameButtons = pygame.image.load("../images/Background/BG-GameButtons.jpg")  # Replace with your image file path
+
+# Create and draw rectangles with different colors and images
 rectangles = [
-    pygame.Rect(0, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT),  # Shop Tile (left side)
-    pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT),  # Game Grid
-    pygame.Rect(SCREEN_WIDTH - SHOP_TILE_WIDTH, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT),  # Shop Tile (right side)
-    pygame.Rect(0, GRID_HEIGHT, ROUND_CONSOLE_TILE_WIDTH, ROUND_CONSOLE_TILE_HEIGHT),  # Round Console
-    pygame.Rect(ROUND_CONSOLE_TILE_WIDTH, GRID_HEIGHT, PLAYER_ONE_INFO_WIDTH, PLAYER_ONE_INFO_HEIGHT),  # Player 1 Info
-    pygame.Rect(SCREEN_WIDTH - PLAYER_TWO_INFO_WIDTH, GRID_HEIGHT, PLAYER_TWO_INFO_WIDTH, PLAYER_TWO_INFO_HEIGHT)  # Player 2 Info
+    (pygame.Rect(0, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT), None),  # Shop Tile (left side) - No image
+    (pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT), BACKGROUDN_Img_GameButtons),  # Game Grid - Set image
+    (pygame.Rect(SCREEN_WIDTH - SHOP_TILE_WIDTH, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT), None),  # Shop Tile (right side) - No image
+    (pygame.Rect(0, GRID_HEIGHT, ROUND_CONSOLE_TILE_WIDTH, ROUND_CONSOLE_TILE_HEIGHT), None),  # Round Console - No image
+    (pygame.Rect(ROUND_CONSOLE_TILE_WIDTH, GRID_HEIGHT, PLAYER_ONE_INFO_WIDTH, PLAYER_ONE_INFO_HEIGHT), None),  # Player 1 Info - No image
+    (pygame.Rect(SCREEN_WIDTH - PLAYER_TWO_INFO_WIDTH, GRID_HEIGHT, PLAYER_TWO_INFO_WIDTH, PLAYER_TWO_INFO_HEIGHT), None),  # Player 2 Info - No image
+    (pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT), None),  # Yellow Rectangle - No image
 ]
 
-# Fill each rectangle with a different color
-colors = [BLUE, WHITE, BLUE, GREEN, YELLOW]
+# Fill each rectangle with a different color and draw the image if provided
+for rect, color_or_image in rectangles:
+    if color_or_image:
+        screen.blit(color_or_image, rect)  # Draw the image as the background
+    else:
+        pygame.draw.rect(screen, color, rect)
 
 # Main game loop
 running = True
@@ -88,6 +112,10 @@ while running:
             rect = pygame.Rect(col * SHOP_UNIT_TILE_WIDTH, row * SHOP_UNIT_TILE_HEIGHT, SHOP_UNIT_TILE_WIDTH, SHOP_UNIT_TILE_HEIGHT)
             pygame.draw.rect(screen, BLACK, rect, 1)  # 1 for outline
     #Grid for the shop for player 2
+
+
+    #Buttons for game loop
+    screen.blit(BUTTON_surface, (BUTTON_x, BUTTON_y))
 
     # Update the display
     pygame.display.flip()
