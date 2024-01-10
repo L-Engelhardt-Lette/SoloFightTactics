@@ -59,7 +59,7 @@ pygame.draw.rect(BUTTON_surface, BLACK, (0, 0, BUTTON_WIDTH, BUTTON_HEIGHT), 3)
 
 # Initialize Pygame screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Rectangles Example')
+pygame.display.set_caption('PYGAME SUCKT SO SEHR, ES GIBT KEIN SCHLECHTERES PROGRAMM UM SACHEN ZU MACHEN')
 
 
 # Create and draw rectangles with different colors
