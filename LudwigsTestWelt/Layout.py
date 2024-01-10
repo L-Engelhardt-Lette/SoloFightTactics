@@ -59,29 +59,21 @@ pygame.draw.rect(BUTTON_surface, BLACK, (0, 0, BUTTON_WIDTH, BUTTON_HEIGHT), 3)
 
 # Initialize Pygame screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('ICH MAG PYGAME NICHT')
+pygame.display.set_caption('Rectangles Example')
 
 
-# Load the image for the background
-BACKGROUDN_Img_GameButtons = pygame.image.load("../images/Background/BG-GameButtons.jpg")  # Replace with your image file path
-
-# Create and draw rectangles with different colors and images
+# Create and draw rectangles with different colors
 rectangles = [
-    (pygame.Rect(0, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT), None),  # Shop Tile (left side) - No image
-    (pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT), BACKGROUDN_Img_GameButtons),  # Game Grid - Set image
-    (pygame.Rect(SCREEN_WIDTH - SHOP_TILE_WIDTH, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT), None),  # Shop Tile (right side) - No image
-    (pygame.Rect(0, GRID_HEIGHT, ROUND_CONSOLE_TILE_WIDTH, ROUND_CONSOLE_TILE_HEIGHT), None),  # Round Console - No image
-    (pygame.Rect(ROUND_CONSOLE_TILE_WIDTH, GRID_HEIGHT, PLAYER_ONE_INFO_WIDTH, PLAYER_ONE_INFO_HEIGHT), None),  # Player 1 Info - No image
-    (pygame.Rect(SCREEN_WIDTH - PLAYER_TWO_INFO_WIDTH, GRID_HEIGHT, PLAYER_TWO_INFO_WIDTH, PLAYER_TWO_INFO_HEIGHT), None),  # Player 2 Info - No image
-    (pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT), None),  # Yellow Rectangle - No image
+    pygame.Rect(0, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT),  # Shop Tile (left side)
+    pygame.Rect(SHOP_TILE_WIDTH, 0, GRID_WIDTH, GRID_HEIGHT),  # Game Grid
+    pygame.Rect(SCREEN_WIDTH - SHOP_TILE_WIDTH, 0, SHOP_TILE_WIDTH, SHOP_TILE_HEIGHT),  # Shop Tile (right side)
+    pygame.Rect(0, GRID_HEIGHT, ROUND_CONSOLE_TILE_WIDTH, ROUND_CONSOLE_TILE_HEIGHT),  # Round Console
+    pygame.Rect(ROUND_CONSOLE_TILE_WIDTH, GRID_HEIGHT, PLAYER_ONE_INFO_WIDTH, PLAYER_ONE_INFO_HEIGHT),  # Player 1 Info
+    pygame.Rect(SCREEN_WIDTH - PLAYER_TWO_INFO_WIDTH, GRID_HEIGHT, PLAYER_TWO_INFO_WIDTH, PLAYER_TWO_INFO_HEIGHT)  # Player 2 Info
 ]
 
-# Fill each rectangle with a different color and draw the image if provided
-for rect, color_or_image in rectangles:
-    if color_or_image:
-        screen.blit(color_or_image, rect)  # Draw the image as the background
-    else:
-        pygame.draw.rect(screen, color, rect)
+# Fill each rectangle with a different color
+colors = [BLUE, WHITE, BLUE, GREEN, YELLOW]
 
 # Main game loop
 running = True
