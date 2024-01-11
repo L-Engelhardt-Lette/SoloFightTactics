@@ -136,10 +136,10 @@ while running:
     text_surface_block3 = text_font.render(text_block3, True, WHITE)
     text_surface_block4 = text_font.render(text_block4, True, WHITE)
 
-    text_block1_pos = (10, 10)
-    text_block2_pos = (10, 40)
-    text_block3_pos = (10, 70)
-    text_block4_pos = (10, 100)
+    text_block1_pos = (100, SCREEN_HEIGHT - 120)
+    text_block2_pos = (100, SCREEN_HEIGHT - 160)
+    text_block3_pos = (SCREEN_WIDTH - 520, SCREEN_HEIGHT - 120)
+    text_block4_pos = (SCREEN_WIDTH - 520, SCREEN_HEIGHT - 160)
 
     screen.blit(text_surface_block1, text_block1_pos)
     screen.blit(text_surface_block2, text_block2_pos)
