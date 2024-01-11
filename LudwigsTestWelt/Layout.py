@@ -4,6 +4,9 @@ import sys
 # Initialize Pygame
 pygame.init()
 
+#Test Values
+TEST_VALUE = 4444
+
 # Constants for Game
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
@@ -126,15 +129,15 @@ while running:
     screen.blit(BUTTON_surface, (BUTTON_x, BUTTON_y))
 
     # Text blocks
-    text_block1 = "Player 1 HP:"
-    text_block2 = "Player 1 Gold:"
-    text_block3 = "Player 2 HP:"
-    text_block4 = "Player 2 Gold:"
+    text_block1 = "Player 1 HP: "
+    text_block2 = "Player 1 Gold: "
+    text_block3 = "Player 2 HP: "
+    text_block4 = "Player 2 Gold: "
 
-    text_surface_block1 = text_font.render(text_block1, True, WHITE)
-    text_surface_block2 = text_font.render(text_block2, True, WHITE)
-    text_surface_block3 = text_font.render(text_block3, True, WHITE)
-    text_surface_block4 = text_font.render(text_block4, True, WHITE)
+    text_surface_block1 = text_font.render(text_block1 + str(TEST_VALUE), True, WHITE)
+    text_surface_block2 = text_font.render(text_block2 + str(TEST_VALUE), True, WHITE)
+    text_surface_block3 = text_font.render(text_block3 + str(TEST_VALUE), True, WHITE)
+    text_surface_block4 = text_font.render(text_block4 + str(TEST_VALUE), True, WHITE)
 
     text_block1_pos = (100, SCREEN_HEIGHT - 120)
     text_block2_pos = (100, SCREEN_HEIGHT - 160)
