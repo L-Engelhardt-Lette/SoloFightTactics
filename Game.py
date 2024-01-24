@@ -46,17 +46,19 @@ class Game:
         unit_list.append([assasine1, assasine2])
         unit_list.append([mage1, mage2])
         #Hashmap/dictionary oder 2D List
-        def place_unit(unit, grid_player):
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            grid_x = mouse_x // cell_size
-            grid_y = mouse_y // cell_size
+    
+    #Funktion für das Platzieren der Units des jeweiligen Spielers 
+    def place_unit(unit, grid_player):
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        grid_x = mouse_x // cell_size
+        grid_y = mouse_y // cell_size
 
-            # Check if the grid cell is empty
-            if grid_player [grid_y][grid_x] == 0 and not clicked:
-                # Place a unit on the grid
-                unit.move((grid_x, grid_y))
-                grid_player[grid_y][grid_x] = 1  # Set grid cell to indicate it's occupied
-                print(grid_x, grid_y,"player")
+        # Check if the grid cell is empty
+        if grid_player [grid_y][grid_x] == 0 and not clicked:
+            # Place a unit on the grid
+            unit.move((grid_x, grid_y))
+            grid_player[grid_y][grid_x] = 1  # Set grid cell to indicate it's occupied
+            print(grid_x, grid_y,"player")
                 
 
 
@@ -135,7 +137,12 @@ while running:
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left mouse button
         #muss noch rausfinden wie ich die Unit bekomme die gerade ausgewählt wird 
         #am besten drag and drop einbauen und eine Testeihneit einbauen um mit dem Grid zu testen
-        game.place_unit()
+        if current_round % 2 == 1:
+            game.place_unit(grid_player1)
+
+        elif current_round % 2 != 1:
+            game.place_unit(grid_player2)    
+
         """mouse_x, mouse_y = pygame.mouse.get_pos()
         grid_x = mouse_x // cell_size
         grid_y = mouse_y // cell_size

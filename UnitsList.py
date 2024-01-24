@@ -51,6 +51,10 @@ class Unit:
     #def __call__(self, target_position) :
         #self.move(target_position)
 
+    def blitme(self):
+        self.rect = self.image.get_rect()
+        self.screen.blit(self.image, self.rect)
+
 
 class Warrior(Unit):
     def __init__(self, name, health, cost, attack_damage, ability, position):
